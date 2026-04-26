@@ -1,0 +1,38 @@
+[
+  {
+    "screenId": "b35f6a9269ae400fbf1f0f9ec3bb7cc5",
+    "title": "Ana Sayfa (Smoke Sayacı)",
+    "componentName": "AnaSayfaSmokeSayaci",
+    "file": "src/screens/AnaSayfaSmokeSayaci.tsx",
+    "buttons": 8,
+    "inputs": 0,
+    "links": 0
+  },
+  {
+    "screenId": "39e3d35b28c947a09ca9c0ad0db0d405",
+    "title": "Boş Değer Durumu (Error Fallback)",
+    "componentName": "BosDegerDurumuErrorFallback",
+    "file": "src/screens/BosDegerDurumuErrorFallback.tsx",
+    "buttons": 1,
+    "inputs": 0,
+    "links": 0
+  },
+  {
+    "screenId": "51891ced574e493fb37f3726a5a1cf82",
+    "title": "Artırma Sonrası Anlık Durum",
+    "componentName": "ArtirmaSonrasiAnlikDurum",
+    "file": "src/screens/ArtirmaSonrasiAnlikDurum.tsx",
+    "buttons": 6,
+    "inputs": 0,
+    "links": 0
+  },
+  {
+    "screenId": "27e140d22234442780b0001edfb1037c",
+    "title": "Azaltma Sonrası Anlık Durum",
+    "componentName": "AzaltmaSonrasiAnlikDurum",
+    "file": "src/screens/AzaltmaSonrasiAnlikDurum.tsx",
+    "buttons": 7,
+    "inputs": 0,
+    "links": 0
+  }
+]
