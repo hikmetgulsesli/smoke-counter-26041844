@@ -9,9 +9,13 @@
 
 import { useState } from "react";
 
-interface BosDegerDurumuErrorFallbackProps {}
+interface BosDegerDurumuErrorFallbackProps {
+  onReset: () => void;
+}
 
 export function BosDegerDurumuErrorFallback(props: BosDegerDurumuErrorFallbackProps) {
+  const { onReset } = props;
+
   return (
     <>
       {/*  Atmospheric Ambient Glow for Error State  */}
@@ -37,7 +41,7 @@ export function BosDegerDurumuErrorFallback(props: BosDegerDurumuErrorFallbackPr
       <p className="font-body text-sm text-on-surface-variant">Değer okunamadı — 0 kullanılıyor.</p>
       </div>
       {/*  Action Button  */}
-      <button className="w-full bg-gradient-to-b from-primary-container to-primary text-on-primary font-label uppercase tracking-[0.05em] text-sm font-bold py-4 rounded-xl shadow-[0_15px_30px_-10px_rgba(37,99,235,0.3)] hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] transition-all duration-300 active:scale-95 flex items-center justify-center gap-2">
+      <button onClick={onReset} className="w-full bg-gradient-to-b from-primary-container to-primary text-on-primary font-label uppercase tracking-[0.05em] text-sm font-bold py-4 rounded-xl shadow-[0_15px_30px_-10px_rgba(37,99,235,0.3)] hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] transition-all duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
       <span className="material-symbols-outlined text-[1.25rem]">refresh</span>
                   Sıfırla ve Yenile
               </button>

@@ -7,11 +7,25 @@
 // 3. Add onClick/onChange handlers to interactive elements
 // 4. Replace placeholder data with props/state
 
-import { useState } from "react";
+import { useEffect } from "react";
 
-interface ArtirmaSonrasiAnlikDurumProps {}
+interface ArtirmaSonrasiAnlikDurumProps {
+  value: number;
+  previousValue: number;
+  onGoToMain: () => void;
+  onIncrement: () => void;
+}
 
 export function ArtirmaSonrasiAnlikDurum(props: ArtirmaSonrasiAnlikDurumProps) {
+  const { value, previousValue, onGoToMain, onIncrement } = props;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onGoToMain();
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [onGoToMain]);
+
   return (
     <>
       {/*  Ambient Success Glow (Atmospheric effect)  */}
@@ -23,10 +37,10 @@ export function ArtirmaSonrasiAnlikDurum(props: ArtirmaSonrasiAnlikDurumProps) {
                       Smoke Sayacı
                   </div>
       <div className="flex items-center gap-4 text-[#b4c5ff]">
-      <button className="hover:bg-[#222a3d] transition-colors active:scale-95 duration-200 p-2 rounded-full flex items-center justify-center">
+      <button aria-label="Geçmiş" className="hover:bg-[#222a3d] transition-colors active:scale-95 duration-200 p-2 rounded-full flex items-center justify-center">
       <span className="material-symbols-outlined">history</span>
       </button>
-      <button className="hover:bg-[#222a3d] transition-colors active:scale-95 duration-200 p-2 rounded-full flex items-center justify-center">
+      <button aria-label="Ayarlar" className="hover:bg-[#222a3d] transition-colors active:scale-95 duration-200 p-2 rounded-full flex items-center justify-center">
       <span className="material-symbols-outlined">settings</span>
       </button>
       </div>
@@ -48,7 +62,7 @@ export function ArtirmaSonrasiAnlikDurum(props: ArtirmaSonrasiAnlikDurumProps) {
                       </div>
       {/*  The Massive Number  */}
       <div className="text-[140px] font-display font-medium tracking-tight text-primary leading-none drop-shadow-xl">
-                          5
+                          {value}
                       </div>
       </div>
       <div className="mt-8 flex items-center gap-2 text-sm text-on-surface-variant bg-surface-container-lowest/50 px-4 py-2 rounded-full relative z-10 border border-outline-variant/10">
@@ -59,20 +73,20 @@ export function ArtirmaSonrasiAnlikDurum(props: ArtirmaSonrasiAnlikDurumProps) {
       {/*  Contextual Stats (Floating below)  */}
       <section className="grid grid-cols-2 gap-4 mb-auto w-full">
       <div className="bg-surface-container-low rounded-2xl p-4 flex flex-col shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.02)]">
-      <span className="text-on-surface-variant font-label text-[10px] uppercase tracking-[0.05em] mb-1">Dün</span>
-      <span className="text-on-surface font-headline text-2xl font-semibold">4</span>
+      <span className="text-on-surface-variant font-label text-[10px] uppercase tracking-[0.05em] mb-1">Önceki</span>
+      <span className="text-on-surface font-headline text-2xl font-semibold">{previousValue}</span>
       </div>
       <div className="bg-surface-container-low rounded-2xl p-4 flex flex-col shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.02)]">
       <span className="text-on-surface-variant font-label text-[10px] uppercase tracking-[0.05em] mb-1">Fark</span>
       <span className="text-success font-headline text-2xl font-semibold flex items-center">
-      <span className="material-symbols-outlined text-[18px] mr-1">trending_up</span> %25
+      <span className="material-symbols-outlined text-[18px] mr-1">trending_up</span> +1
                       </span>
       </div>
       </section>
       {/*  Main Action Area  */}
       <div className="w-full flex justify-center mt-12 mb-8">
       {/*  Pressed State Button  */}
-      <button className="w-[120px] h-[120px] rounded-full bg-gradient-to-b from-primary-container to-inverse-primary flex items-center justify-center shadow-[inset_0_4px_10px_rgba(0,0,0,0.4)] scale-95 ring-4 ring-primary-container/20 relative group">
+      <button onClick={onIncrement} className="w-[120px] h-[120px] rounded-full bg-gradient-to-b from-primary-container to-inverse-primary flex items-center justify-center shadow-[inset_0_4px_10px_rgba(0,0,0,0.4)] scale-95 ring-4 ring-primary-container/20 relative group cursor-pointer">
       {/*  Inner glow for pressed feel  */}
       <div className="absolute inset-0 rounded-full shadow-[inset_0_-2px_10px_rgba(255,255,255,0.1)]"></div>
       <div className="flex flex-col items-center justify-center text-on-primary">
@@ -86,17 +100,17 @@ export function ArtirmaSonrasiAnlikDurum(props: ArtirmaSonrasiAnlikDurumProps) {
       <nav className="fixed bottom-0 w-full z-50 bg-[#0b1326]/80 backdrop-blur-2xl border-none shadow-2xl">
       <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] flex justify-around items-center p-4">
       {/*  Active Tab: Sayaç  */}
-      <button className="flex flex-col items-center justify-center text-[#b4c5ff] bg-[#2563eb]/20 rounded-xl px-4 py-1 active:scale-90 transition-transform w-[72px]">
+      <button className="flex flex-col items-center justify-center text-[#b4c5ff] bg-[#2563eb]/20 rounded-xl px-4 py-1 active:scale-90 transition-transform w-[72px] cursor-pointer">
       <span className="material-symbols-outlined mb-1 text-[24px]" style={{fontVariationSettings: "'FILL' 1"}}>add_circle</span>
       <span className="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium">Sayaç</span>
       </button>
       {/*  Inactive Tab: İstatistik  */}
-      <button className="flex flex-col items-center justify-center text-[#c3c6d7] hover:text-[#f8fafc] active:scale-90 transition-transform w-[72px]">
+      <button className="flex flex-col items-center justify-center text-[#c3c6d7] hover:text-[#f8fafc] active:scale-90 transition-transform w-[72px] cursor-pointer">
       <span className="material-symbols-outlined mb-1 text-[24px]">leaderboard</span>
       <span className="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium">İstatistik</span>
       </button>
       {/*  Inactive Tab: Geçmiş  */}
-      <button className="flex flex-col items-center justify-center text-[#c3c6d7] hover:text-[#f8fafc] active:scale-90 transition-transform w-[72px]">
+      <button className="flex flex-col items-center justify-center text-[#c3c6d7] hover:text-[#f8fafc] active:scale-90 transition-transform w-[72px] cursor-pointer">
       <span className="material-symbols-outlined mb-1 text-[24px]">history</span>
       <span className="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium">Geçmiş</span>
       </button>

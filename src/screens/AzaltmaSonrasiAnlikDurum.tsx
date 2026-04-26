@@ -7,11 +7,26 @@
 // 3. Add onClick/onChange handlers to interactive elements
 // 4. Replace placeholder data with props/state
 
-import { useState } from "react";
+import { useEffect } from "react";
 
-interface AzaltmaSonrasiAnlikDurumProps {}
+interface AzaltmaSonrasiAnlikDurumProps {
+  value: number;
+  previousValue: number;
+  onGoToMain: () => void;
+  onIncrement: () => void;
+  onDecrement: () => void;
+}
 
 export function AzaltmaSonrasiAnlikDurum(props: AzaltmaSonrasiAnlikDurumProps) {
+  const { value, previousValue, onGoToMain, onIncrement, onDecrement } = props;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onGoToMain();
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [onGoToMain]);
+
   return (
     <>
       {/*  TopAppBar  */}
@@ -20,10 +35,10 @@ export function AzaltmaSonrasiAnlikDurum(props: AzaltmaSonrasiAnlikDurumProps) {
                   Smoke Sayacı
               </div>
       <div className="flex items-center gap-2">
-      <button aria-label="history" className="p-2 rounded-full text-[#c3c6d7] hover:bg-[#222a3d] transition-colors active:scale-95 duration-200">
+      <button aria-label="Geçmiş" className="p-2 rounded-full text-[#c3c6d7] hover:bg-[#222a3d] transition-colors active:scale-95 duration-200">
       <span className="material-symbols-outlined text-[20px]">history</span>
       </button>
-      <button aria-label="settings" className="p-2 rounded-full text-[#c3c6d7] hover:bg-[#222a3d] transition-colors active:scale-95 duration-200">
+      <button aria-label="Ayarlar" className="p-2 rounded-full text-[#c3c6d7] hover:bg-[#222a3d] transition-colors active:scale-95 duration-200">
       <span className="material-symbols-outlined text-[20px]">settings</span>
       </button>
       </div>
@@ -40,11 +55,11 @@ export function AzaltmaSonrasiAnlikDurum(props: AzaltmaSonrasiAnlikDurumProps) {
                   </div>
       {/*  Pre-transition ghost number (optional atmospheric effect)  */}
       <div className="absolute text-[8rem] font-black tracking-[-0.04em] text-primary/10 select-none blur-sm translate-y-4">
-                      10
+                      {previousValue}
                   </div>
       {/*  Current Number  */}
       <div className="text-[8rem] font-display font-black tracking-[-0.04em] text-primary leading-none select-none z-10">
-                      9
+                      {value}
                   </div>
       {/*  Metadata Label  */}
       <div className="absolute bottom-10 flex flex-col items-center gap-1">
@@ -59,11 +74,11 @@ export function AzaltmaSonrasiAnlikDurum(props: AzaltmaSonrasiAnlikDurumProps) {
       {/*  Control Buttons  */}
       <div className="flex w-full max-w-[320px] gap-4 mt-12 z-10">
       {/*  Decrement Button (Active State visually pressed)  */}
-      <button aria-label="Azalt" className="flex-1 h-16 rounded-2xl bg-surface-container-highest flex items-center justify-center gap-2 border border-error/20 text-error shadow-[inset_0_4px_12px_rgba(0,0,0,0.2)] transform scale-[0.96] transition-all">
+      <button onClick={onDecrement} aria-label="Azalt" className="flex-1 h-16 rounded-2xl bg-surface-container-highest flex items-center justify-center gap-2 border border-error/20 text-error shadow-[inset_0_4px_12px_rgba(0,0,0,0.2)] transform scale-[0.96] transition-all cursor-pointer">
       <span className="material-symbols-outlined text-[28px]">remove</span>
       </button>
       {/*  Increment Button (Default State)  */}
-      <button aria-label="Artır" className="flex-1 h-16 rounded-2xl bg-gradient-to-b from-primary-container to-primary-container/80 flex items-center justify-center gap-2 shadow-[0_8px_16px_-6px_rgba(37,99,235,0.4)] text-on-primary-container hover:brightness-110 active:scale-[0.96] transition-all">
+      <button onClick={onIncrement} aria-label="Artır" className="flex-1 h-16 rounded-2xl bg-gradient-to-b from-primary-container to-primary-container/80 flex items-center justify-center gap-2 shadow-[0_8px_16px_-6px_rgba(37,99,235,0.4)] text-on-primary-container hover:brightness-110 active:scale-[0.96] transition-all cursor-pointer">
       <span className="material-symbols-outlined text-[28px]">add</span>
       </button>
       </div>
@@ -76,17 +91,17 @@ export function AzaltmaSonrasiAnlikDurum(props: AzaltmaSonrasiAnlikDurumProps) {
       <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-[#0b1326]/80 backdrop-blur-2xl z-50 rounded-t-3xl border-t border-white/5">
       <div className="flex justify-around items-center p-4">
       {/*  Tab: Sayaç (Active)  */}
-      <button className="flex flex-col items-center justify-center text-[#b4c5ff] bg-[#2563eb]/20 rounded-xl px-4 py-1 active:scale-90 transition-transform">
+      <button className="flex flex-col items-center justify-center text-[#b4c5ff] bg-[#2563eb]/20 rounded-xl px-4 py-1 active:scale-90 transition-transform cursor-pointer">
       <span className="material-symbols-outlined text-[24px]" style={{fontVariationSettings: "'FILL' 1"}}>add_circle</span>
       <span className="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium mt-1">Sayaç</span>
       </button>
       {/*  Tab: İstatistik (Inactive)  */}
-      <button className="flex flex-col items-center justify-center text-[#c3c6d7] hover:text-[#f8fafc] active:scale-90 transition-transform">
+      <button className="flex flex-col items-center justify-center text-[#c3c6d7] hover:text-[#f8fafc] active:scale-90 transition-transform cursor-pointer">
       <span className="material-symbols-outlined text-[24px]">leaderboard</span>
       <span className="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium mt-1">İstatistik</span>
       </button>
       {/*  Tab: Geçmiş (Inactive)  */}
-      <button className="flex flex-col items-center justify-center text-[#c3c6d7] hover:text-[#f8fafc] active:scale-90 transition-transform">
+      <button className="flex flex-col items-center justify-center text-[#c3c6d7] hover:text-[#f8fafc] active:scale-90 transition-transform cursor-pointer">
       <span className="material-symbols-outlined text-[24px]">history</span>
       <span className="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium mt-1">Geçmiş</span>
       </button>

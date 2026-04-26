@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  color: #c3c6d7;
+}
+
+.value {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.md {
+  font-size: 4rem;
+}
+
+.lg {
+  font-size: 7rem;
+}
+
+.xl {
+  font-size: 8rem;
+}
+
+.default {
+  color: #dae2fd;
+}
+
+.dimmed {
+  color: #c3c6d7;
+  opacity: 0.3;
+}
+
+.ghost {
+  color: #b4c5ff;
+  opacity: 0.1;
+  filter: blur(4px);
+}
