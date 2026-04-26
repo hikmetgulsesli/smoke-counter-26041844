@@ -1,0 +1,32 @@
+# smoke-counter-26041844 — Ürün Gereksinimleri Dokümanı
+
+## 1. Genel Bakış
+smoke-counter, kullanıcının sayısal bir değeri artırma, azaltma ve sıfırlama işlemlerini yapabildiği minimal bir sayaç uygulamasıdır. Sayaç değeri tarayıcıda localStorage üzerinde kalıcı olarak saklanır. Uygulama React 18 + Vite + TypeScript ile geliştirilmiştir. Türkçe arayüz sunulur.
+
+## 2. Hedefler
+- Artırma (+), Azaltma (-), Sıfırlama (Reset) işlemleri.
+- localStorage ile kalıcı veri saklama.
+- Mobil ve masaüstü uyumlu.
+- Klavye erişilebilirliği.
+
+## 3. Tech Stack
+React 18.3, Vite, TypeScript, CSS Modules, Lucide React.
+
+## 4. Fonksiyonel Gereksinimler
+- "+" butonu: +1 artırır, kaydeder.
+- "-" butonu: -1 azaltır, kaydeder.
+- "Sıfırla" butonu: 0 yapar, kaydeder.
+- Dil: Türkçe.
+
+## 5. UI/UX Gereksinimleri
+- **Aesthetic:** Minimal, temiz çizgiler.
+- **Renkler:** Primary #2563eb (Mavi), Secondary #64748b (Gri), Background #ffffff, Surface #f8fafc.
+- **Tipografi:** Inter.
+- **İkonlar:** Lucide React (Plus, Minus, RotateCcw).
+- **Responsive:** 320px - 1920px, max-width 480px container.
+
+## 6. Ekran Listesi
+1. Ana Sayfa (Smoke Sayacı)
+2. Boş Değer Durumu (Error Fallback)
+3. Artırma Sonrası Anlık Durum (Feedback)
+4. Azaltma Sonrası Anlık Durum (Feedback)

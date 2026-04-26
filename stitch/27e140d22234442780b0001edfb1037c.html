@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Smoke Sayacı - Decrement Feedback</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#0b1326",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "secondary": "#b7c8e1",
+                        "primary": "#b4c5ff",
+                        "surface": "#0b1326",
+                        "surface-dim": "#0b1326",
+                        "surface-container-low": "#131b2e",
+                        "primary-container": "#2563eb",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-primary-container": "#eeefff",
+                        "on-background": "#dae2fd",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-primary-fixed": "#00174b",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-surface-variant": "#c3c6d7",
+                        "surface-container": "#171f33",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "tertiary-container": "#bc4800",
+                        "on-error-container": "#ffdad6",
+                        "surface-bright": "#31394d",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-secondary-fixed": "#0b1c30",
+                        "outline": "#8d90a0",
+                        "on-tertiary": "#581e00",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "tertiary": "#ffb596",
+                        "surface-container-highest": "#2d3449",
+                        "on-secondary-container": "#a9bad3",
+                        "on-tertiary-container": "#ffede6",
+                        "error-container": "#93000a",
+                        "surface-tint": "#b4c5ff",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-secondary": "#213145",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-container-high": "#222a3d",
+                        "on-primary": "#002a78",
+                        "surface-variant": "#2d3449",
+                        "inverse-primary": "#0053db",
+                        "inverse-on-surface": "#283044",
+                        "secondary-container": "#3a4a5f",
+                        "surface-container-lowest": "#060e20",
+                        "primary-fixed": "#dbe1ff",
+                        "outline-variant": "#434655",
+                        "on-surface": "#dae2fd",
+                        "on-error": "#690005",
+                        "inverse-surface": "#dae2fd"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter", "sans-serif"],
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom subtle atmospheric glow specific to this feedback state */
+        .glow-error-feedback {
+            box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 0 80px -20px rgba(255, 180, 171, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col relative overflow-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-[#0b1326]/60 backdrop-blur-xl docked full-width top-0 sticky flex justify-between items-center w-full px-6 py-4 max-w-[480px] mx-auto z-50">
+<div class="text-[#b4c5ff] font-['Inter'] font-bold tracking-tight text-xl font-black text-[#f8fafc]">
+            Smoke Sayacı
+        </div>
+<div class="flex items-center gap-2">
+<button aria-label="history" class="p-2 rounded-full text-[#c3c6d7] hover:bg-[#222a3d] transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[20px]">history</span>
+</button>
+<button aria-label="settings" class="p-2 rounded-full text-[#c3c6d7] hover:bg-[#222a3d] transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-[480px] mx-auto flex flex-col items-center justify-center px-6 pb-24 relative">
+<!-- Atmospheric Background Glow for Feedback (-1 action) -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-error/10 rounded-full blur-[80px] pointer-events-none"></div>
+<!-- The Ritualistic Counter Card -->
+<div class="relative w-full max-w-[320px] aspect-square rounded-[2.5rem] bg-surface-container-high flex flex-col items-center justify-center glow-error-feedback transition-all duration-300 transform scale-[0.98]">
+<!-- Floating Indicator (Feedback) -->
+<div class="absolute top-8 right-12 text-error font-display font-bold text-2xl tracking-tighter opacity-80 translate-y-[-8px]">
+                -1
+            </div>
+<!-- Pre-transition ghost number (optional atmospheric effect) -->
+<div class="absolute text-[8rem] font-black tracking-[-0.04em] text-primary/10 select-none blur-sm translate-y-4">
+                10
+            </div>
+<!-- Current Number -->
+<div class="text-[8rem] font-display font-black tracking-[-0.04em] text-primary leading-none select-none z-10">
+                9
+            </div>
+<!-- Metadata Label -->
+<div class="absolute bottom-10 flex flex-col items-center gap-1">
+<span class="font-label text-[10px] uppercase tracking-[0.05em] text-on-surface-variant font-medium">
+                    BUGÜN İÇİLEN
+                </span>
+<span class="font-body text-xs text-secondary/60">
+                    Hedef: 5
+                </span>
+</div>
+</div>
+<!-- Control Buttons -->
+<div class="flex w-full max-w-[320px] gap-4 mt-12 z-10">
+<!-- Decrement Button (Active State visually pressed) -->
+<button aria-label="Azalt" class="flex-1 h-16 rounded-2xl bg-surface-container-highest flex items-center justify-center gap-2 border border-error/20 text-error shadow-[inset_0_4px_12px_rgba(0,0,0,0.2)] transform scale-[0.96] transition-all">
+<span class="material-symbols-outlined text-[28px]">remove</span>
+</button>
+<!-- Increment Button (Default State) -->
+<button aria-label="Artır" class="flex-1 h-16 rounded-2xl bg-gradient-to-b from-primary-container to-primary-container/80 flex items-center justify-center gap-2 shadow-[0_8px_16px_-6px_rgba(37,99,235,0.4)] text-on-primary-container hover:brightness-110 active:scale-[0.96] transition-all">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+</div>
+<!-- Secondary Info Pill -->
+<div class="mt-8 px-4 py-2 rounded-full bg-surface-container-low text-on-surface-variant font-label text-xs tracking-wide">
+            Son içim: Az önce
+        </div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-[#0b1326]/80 backdrop-blur-2xl z-50 rounded-t-3xl border-t border-white/5">
+<div class="flex justify-around items-center p-4">
+<!-- Tab: Sayaç (Active) -->
+<button class="flex flex-col items-center justify-center text-[#b4c5ff] bg-[#2563eb]/20 rounded-xl px-4 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium mt-1">Sayaç</span>
+</button>
+<!-- Tab: İstatistik (Inactive) -->
+<button class="flex flex-col items-center justify-center text-[#c3c6d7] hover:text-[#f8fafc] active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[24px]">leaderboard</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium mt-1">İstatistik</span>
+</button>
+<!-- Tab: Geçmiş (Inactive) -->
+<button class="flex flex-col items-center justify-center text-[#c3c6d7] hover:text-[#f8fafc] active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[24px]">history</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium mt-1">Geçmiş</span>
+</button>
+</div>
+</nav>
+</body></html>

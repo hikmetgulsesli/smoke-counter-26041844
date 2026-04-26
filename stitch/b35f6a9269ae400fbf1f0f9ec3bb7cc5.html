@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Smoke Sayacı</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#0b1326",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "secondary": "#b7c8e1",
+                        "primary": "#b4c5ff",
+                        "surface": "#0b1326",
+                        "surface-dim": "#0b1326",
+                        "surface-container-low": "#131b2e",
+                        "primary-container": "#2563eb",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-primary-container": "#eeefff",
+                        "on-background": "#dae2fd",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-primary-fixed": "#00174b",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-surface-variant": "#c3c6d7",
+                        "surface-container": "#171f33",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "tertiary-container": "#bc4800",
+                        "on-error-container": "#ffdad6",
+                        "surface-bright": "#31394d",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-secondary-fixed": "#0b1c30",
+                        "outline": "#8d90a0",
+                        "on-tertiary": "#581e00",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "tertiary": "#ffb596",
+                        "surface-container-highest": "#2d3449",
+                        "on-secondary-container": "#a9bad3",
+                        "on-tertiary-container": "#ffede6",
+                        "error-container": "#93000a",
+                        "surface-tint": "#b4c5ff",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-secondary": "#213145",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-container-high": "#222a3d",
+                        "on-primary": "#002a78",
+                        "surface-variant": "#2d3449",
+                        "inverse-primary": "#0053db",
+                        "inverse-on-surface": "#283044",
+                        "secondary-container": "#3a4a5f",
+                        "surface-container-lowest": "#060e20",
+                        "primary-fixed": "#dbe1ff",
+                        "outline-variant": "#434655",
+                        "on-surface": "#dae2fd",
+                        "on-error": "#690005",
+                        "inverse-surface": "#dae2fd"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-50 bg-[#0b1326]/60 backdrop-blur-xl border-none shadow-none">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-[480px] mx-auto">
+<div class="flex items-center gap-2">
+<span class="text-xl font-black text-[#f8fafc] font-['Inter'] tracking-tight">Smoke Sayacı</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#c3c6d7] hover:bg-[#222a3d] transition-colors active:scale-95 duration-200 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">history</span>
+</button>
+<button class="text-[#c3c6d7] hover:bg-[#222a3d] transition-colors active:scale-95 duration-200 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center p-6 w-full max-w-[480px] mx-auto pb-32">
+<!-- The Atmospheric Ledger Card -->
+<div class="w-full bg-surface-container-high rounded-[2rem] p-10 flex flex-col items-center relative shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] border-none">
+<h2 class="text-on-surface-variant font-label text-[10px] uppercase tracking-[0.05em] font-medium mb-6">Mevcut Değer</h2>
+<div class="text-[7rem] leading-none font-display font-bold tracking-tight text-on-surface mb-12">
+                0
+            </div>
+<!-- Action Buttons Grid -->
+<div class="grid grid-cols-2 gap-4 w-full">
+<!-- Arttır Button (Primary Moment of Action) -->
+<button class="col-span-2 flex items-center justify-center gap-3 bg-gradient-to-b from-primary-container to-primary text-on-primary py-5 px-6 rounded-2xl font-bold text-lg active:scale-95 transition-transform duration-200 shadow-lg shadow-primary-container/20 border-none">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                    Arttır
+                </button>
+<!-- Azalt Button (Secondary Container) -->
+<button class="flex items-center justify-center gap-2 bg-secondary-container text-on-secondary-container py-4 px-4 rounded-xl font-medium active:scale-95 transition-transform duration-200 border-none">
+<span class="material-symbols-outlined">remove</span>
+                    Azalt
+                </button>
+<!-- Sıfırla Button (Error state) -->
+<button class="flex items-center justify-center gap-2 bg-surface-container-highest text-error py-4 px-4 rounded-xl font-medium active:scale-95 transition-transform duration-200 border-none">
+<span class="material-symbols-outlined">refresh</span>
+                    Sıfırla
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-[#0b1326]/80 backdrop-blur-2xl border-none shadow-2xl md:hidden">
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] flex justify-around items-center p-4">
+<!-- Sayaç (Active) -->
+<button class="flex flex-col items-center justify-center text-[#b4c5ff] bg-[#2563eb]/20 rounded-xl px-4 py-1 active:scale-90 transition-transform hover:text-[#f8fafc] border-none">
+<span class="material-symbols-outlined text-2xl mb-1" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium text-[#b4c5ff]">Sayaç</span>
+</button>
+<!-- İstatistik (Inactive) -->
+<button class="flex flex-col items-center justify-center text-[#c3c6d7] px-4 py-1 active:scale-90 transition-transform hover:text-[#f8fafc] border-none">
+<span class="material-symbols-outlined text-2xl mb-1">leaderboard</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium text-[#b4c5ff]">İstatistik</span>
+</button>
+<!-- Geçmiş (Inactive) -->
+<button class="flex flex-col items-center justify-center text-[#c3c6d7] px-4 py-1 active:scale-90 transition-transform hover:text-[#f8fafc] border-none">
+<span class="material-symbols-outlined text-2xl mb-1">history</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.05em] font-medium text-[#b4c5ff]">Geçmiş</span>
+</button>
+</div>
+</nav>
+</body></html>

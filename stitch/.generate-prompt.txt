@@ -1,0 +1,225 @@
+# smoke-counter-26041844 — Ürün Gereksinimleri Dokümanı
+
+## 1. Genel Bakış
+
+smoke-counter, kullanıcının sayısal bir değeri artırma, azaltma ve sıfırlama işlemlerini yapabildiği minimal bir sayaç uygulamasıdır. Sayaç değeri tarayıcıda localStorage üzerinde kalıcı olarak saklanır, böylece sayfa kapatılıp yeniden açıldığında son değer korunur. Uygulama React 18 + Vite + TypeScript ile geliştirilmiş tek sayfalık bir web uygulamasıdır. Hedef kitle: genel kullanıcılar, geliştirici smoke testi yapan ekipler. Türkçe arayüz sunulur.
+
+## 2. Hedefler
+
+- Kullanıcı sayısal bir değeri 1 artırabilir (+ butonu)
+- Kullanıcı sayısal bir değeri 1 azaltabilir (- butonu)
+- Kullanıcı değeri sıfırlayabilir (reset butonu)
+- Sayaç değeri tarayıcıda localStorage ile kalıcı olarak saklanır
+- Sayfa yenilendiğinde veya tarayıcı kapatılıp açıldığında son değer korunur
+- Uygulama ilk yüklemede 2 saniyeden hızlı açılır
+- Mobil ve masaüstü tarayıcılarda düzgün çalışır
+- Klavye ile tüm işlemler yapılabilir
+
+## 3. Tech Stack Detayı
+
+- **Framework:** React 18.3 (functional components, hooks)
+- **Build:** Vite 5.x — hızlı geliştirme sunucusu ve üretim build aracı
+- **Styling:** CSS Modules — scoped stil, bileşen başına ayrı .module.css dosyası
+- **State:** React useState hook — basit state yönetimi yeterli
+- **Storage:** localStorage API — window.localStorage ile değer saklama, JSON serialization
+- **Routing:** Yok (tek sayfa, SPA)
+- **Language:** TypeScript 5.x — tip güvenliği
+- **Testing:** Vitest — birim testler
+- **Deployment:** Basit static serve (npx serve dist) veya Vercel preview
+
+## 4. Fonksiyonel Gereksinimler
+
+### 4.1 Sayaç Değeri Artırma
+- "+" butonuna tıklandığında sayaç değeri 1 artar
+- Her artırma işleminde değer localStorage'a kaydedilir
+- Artırma işlemi anında UI'da yansır (reactive update)
+- Negatif değerlere izin verilir (sınır yok)
+- Hata durumu yok, her zaman başarılı
+
+### 4.2 Sayaç Değeri Azaltma
+- "-" butonuna tıklandığında sayaç değeri 1 azalır
+- Her azaltma işleminde değer localStorage'a kaydedilir
+- Negatif değerlere izin verilir
+- Hata durumu yok, her zaman başarılı
+
+### 4.3 Sıfırlama
+- "Sıfırla" butonuna tıklandığında sayaç değeri 0 olur
+- Değer localStorage'a kaydedilir
+- Kullanıcı onay gerektirmez, doğrudan sıfırlanır
+
+### 4.4 Kalıcı Depolama (localStorage)
+- Uygulama ilk açıldığında localStorage'dan "counter" anahtarında kayıtlı değer okunur
+- Kayıtlı değer yoksa veya geçersiz ise başlangıç değeri 0 kabul edilir
+- Her artırma, azaltma veya sıfırlama işleminden sonra değer localStorage'a yazılır
+- Saklanan veri formatı: JSON string olarak saklanan number
+
+### 4.5 Arayüz Etketleri (Türkçe)
+- Başlık: "Smoke Sayacı"
+- Artırma butonu: "Arttır"
+- Azaltma butonu: "Azalt"
+- Sıfırlama butonu: "Sıfırla"
+- Mevcut değer: "Değer" etiketi ile sayısal gösterim
+- Boş değer durumu (NaN/Geçersiz): "Değer okunamadı — 0 kullanılıyor"
+
+## 5. Veri Modeli
+
+### CounterState (localStorage)
+```
+{
+  value: number  // Sayaç değeri, integer veya 0
+}
+```
+- Saklanan anahtar: "counter"
+- Değer tipi: JSON.parse ile number'a dönüştürülür
+- Hatalı veri durumunda (NaN, null, undefined): 0 varsayılır
+
+### In-Memory State (React useState)
+```
+{
+  count: number  // Mevcut sayaç değeri
+}
+```
+
+## 6. UI/UX Gereksinimleri
+
+### 6.1 Design System
+
+**Aesthetic:** Minimal — temiz çizgiler, bol beyaz alan, odak noktası sayaç değeridir
+
+**Renk Paleti:**
+- Primary: #2563eb (mavi — butonlar, vurgular)
+- Secondary: #64748b (gri — secondary metin)
+- Background: #ffffff (beyaz — sayfa arka planı)
+- Surface: #f8fafc (açık gri — kart/mukukvs arka plan)
+- Text Primary: #0f172a (koyu lacivert)
+- Text Secondary: #64748b (gri)
+- Border: #e2e8f0 (açık gri kenarlık)
+- Success: #22c55e (yeşil)
+- Error: #ef4444 (kırmızı)
+- Decoration: #f1f5f9 (en açık gri — fokus/hower arka plan)
+
+**Tipografi:**
+- Heading font: Inter (Google Fonts) — bold, 24px sayaç değeri
+- Body font: Inter — regular, 14-16px
+- Monospace (opsiyonel sayaç değeri): JetBrains Mono
+
+**Icon Library:** Lucide React — Artırma için Plus, Azaltma için Minus, Sıfırlama için RotateCcw
+
+### 6.2 Spacing & Components
+
+**Spacing scale:** 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 px (8px base)
+
+**Border radius:** 8px (butonlar, kartlar)
+
+**Shadow:** 0 1px 3px rgba(0,0,0,0.1) — kart gölgesi
+
+**Bileşen Pattern'leri:**
+- Butonlar: 40px yükseklik, min 80px genişlik, 8px border-radius, bold metin
+- Sayı gösterimi: 48px font size, bold, centered
+- Kart: beyaz arka plan, 8px border-radius, 1px border, iç padding 24px
+
+### 6.3 Responsive Davranış
+- Minimum viewport: 320px (mobil)
+- Maksimum viewport: 1920px (desktop)
+- Dikey ve yatay kullanım desteklenir
+- Merkezi hizalama, max-width: 480px konteyner
+
+## 7. Non-Functional Requirements
+
+### 7.1 Performans
+- İlk yükleme (production build): < 1.5 saniye (code splitting, lazy yok — tek sayfa)
+- Vite geliştirme sunucusu: < 500ms hot reload
+- Bundle size hedefi: < 100KB gzipped (JS)
+- Sayaç güncellemesi: < 16ms (60fps UI güncellemesi)
+
+### 7.2 Erişilebilirlik (WCAG 2.1 AA)
+- Klavye navigasyonu: Tab ile butonlara erişim, Enter ile tetikleme
+- Screen reader: ARIA live region ile sayaç değeri duyurulması
+- Kontrast oranı: Primary blue (#2563eb) on white >= 4.5:1 ✓
+- Focus state: 2px outline offset, primary color focus ring
+- Touch hedefleri: >= 44x44 px (butonlar)
+- Reduced motion: respects prefers-reduced-motion
+
+### 7.3 Tarayıcı Desteği
+- Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- iOS Safari 14+, Android Chrome 90+
+- localStorage gerektirir — private/incognito modda çalışır (sessionStorage fallback opsiyonel)
+
+### 7.4 Güvenlik
+- XSS koruması: value display'de string interpolation değil, React JSX text rendering
+- localStorage verisi kullanıcı girdisi değil, salt sayısal — güvenli
+
+## 8. Proje Yapısı
+
+```
+smoke-counter/
+├── src/
+│   ├── components/
+│   │   ├── Counter.tsx          # Ana sayaç bileşeni
+│   │   ├── Counter.module.css   # Counter stilleri
+│   │   ├── Button.tsx           # Yeniden kullanılabilir buton
+│   │   └── Button.module.css
+│   ├── hooks/
+│   │   └── useCounter.ts        # Sayaç state + localStorage hook
+│   ├── utils/
+│   │   └── storage.ts           # localStorage yardımcı fonksiyonları
+│   ├── types/
+│   │   └── index.ts             # TypeScript tipleri
+│   ├── App.tsx                  # Ana uygulama bileşeni
+│   ├── App.module.css           # App stilleri
+│   ├── main.tsx                 # Giriş noktası
+│   └── index.css                # Global stiller, CSS reset
+├── public/
+│   └── favicon.svg
+├── index.html
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── vitest.config.ts
+└── README.md
+```
+
+## 9. Window State (testing/dogfood)
+
+```typescript
+window.app = {
+  state: 'idle',       // idle | loading
+  counter: {
+    value: 0,          // Mevcut sayaç değeri
+    lastAction: null   // 'increment' | 'decrement' | 'reset' | null
+  }
+}
+```
+
+## 10. Ekranlar (zorunlu tablo)
+
+| # | Ekran Adı | Tür | Açıklama |
+|---|-----------|-----|----------|
+| 1 | Ana Sayfa (Smoke Sayacı) | main | Tek sayfa — sayaç değeri, arttır/azalt/sıfırla butonları |
+| 2 | Boş Değer Durumu (Error Fallback) | empty/error | localStorage bozuk veya NaN gelirse gösterilen fallback UI |
+| 3 | Artırma Sonrası Anlık Durum | feedback | +1 butonuna basıldıktan sonraki animasyon/geçici görsel |
+| 4 | Azaltma Sonrası Anlık Durum | feedback | -1 butonuna basıldıktan sonraki animasyon/geçici görsel |
+
+## 11. Kabul Kriterleri (Tek Story — Smoke Test)
+
+1. `npm install && npm run dev` komutu uygulamayı 500ms içinde başlatır
+2. Tarayıcıda sayaç varsayılan değeri "0" olarak görünür
+3. "Arttır" butonuna tıklandığında değer 1 artar ve UI güncellenir
+4. "Azalt" butonuna tıklandığında değer 1 azalır ve UI güncellenir
+5. "Sıfırla" butonuna tıklandığında değer 0 olur
+6. Sayfa yenilendiğinde son değer korunur (localStorage OK)
+7. `npm run build` başarılı olur, hata vermez
+8. `npm run preview` ile üretim build'i serve edilebilir
+9. Tüm butonlar klavye ile (Tab + Enter) erişilebilir ve çalışır
+10. ARIA live region sayaç değerini screen reader'a duyurur
+
+Generate a SEPARATE screen design for EVERY page, view, modal, dialog, tab panel, and settings screen described in this PRD. Do NOT skip ANY screen — even if it seems minor.
+
+MANDATORY SCREENS:
+- If the PRD mentions "settings" or "ayarlar" → generate a Settings screen
+- If the PRD mentions tabs or bottom navigation → generate EACH tab view as a separate screen
+- If the PRD mentions modals (statistics, help, share, confirmation) → generate each as a separate screen
+- If the PRD mentions error states, empty states, loading states → generate those too
+- Generate at least as many screens as there are distinct views/pages/modals in the PRD
+
+All visible text must be in Turkish. Use a dark, modern theme.
